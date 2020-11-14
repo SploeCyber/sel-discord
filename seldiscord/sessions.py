@@ -169,8 +169,8 @@ class Session:
 
     def _get_properties(self, encode=True) -> dict:
         pua = user_agents.parse(self.user_agent)
-        device = None
-        if not pua.device.family in [None, "Other"]:
+        device = ""
+        if not pua.device.family in ["", None, "Other"]:
             device = pua.device.family
         data = {
             "os": pua.os.family,
