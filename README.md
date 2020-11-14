@@ -18,7 +18,7 @@ with seldiscord.Session(user_agent) as dsc:
   # now that TLS fingerprinting has been evaded, Discord is likely
   # to present no captchas while creating an account
   print(dsc.register(
-    username="234ixcmoas",
+    username="poggers",
     #email="support@discordapp.com",
     #password="hunter2",
     #invite="fortnite"
