@@ -50,3 +50,7 @@ Briefly connects to the gateway to unlock additional functionalities.
 
 ### Session.close()
 Closes the sel-requests instance.
+
+## Exceptions
+
+### exceptions.EndpointError(code, message, response)
