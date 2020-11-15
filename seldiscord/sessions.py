@@ -1,4 +1,5 @@
 from .analytics import AnalyticsEvent
+from . import exceptions
 from urllib.parse import urlparse
 import user_agents
 import selrequests
@@ -156,6 +157,13 @@ class Session:
             json=json,
             headers=headers
         )
+        
+        if not resp.ok and "/json" in resp.headers.get("content-type", ""):
+            data = resp.json()
+            if "code" in data:
+                raise exceptions.EndpointError(
+                    data["code"], data["message"], response=resp)
+    
         return resp
 
     """
