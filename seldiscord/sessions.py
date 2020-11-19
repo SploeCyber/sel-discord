@@ -28,10 +28,10 @@ class Session:
         self.host = host
         self.api = "v8"
         self.build_number = 9999
-
         self.token = None
         self.fingerprint = None
         self.client_uuid = None
+
         self._sel = None
         try:
             self._setup(proxy_url, user_agent)
