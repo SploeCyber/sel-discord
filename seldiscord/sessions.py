@@ -1,4 +1,4 @@
-from .analytics import AnalyticsEvent
+from .models import AnalyticsEvent
 from . import exceptions
 from urllib.parse import urlparse
 import user_agents
