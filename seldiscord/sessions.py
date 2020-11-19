@@ -32,9 +32,12 @@ class Session:
         self.token = None
         self.fingerprint = None
         self.client_uuid = None
-
-        self._sel = selrequests.Session(proxy_url, user_agent)
-        self._sel.set_origin(f"https://{self.host}/")
+        self._sel = None
+        try:
+            self._setup(proxy_url, user_agent)
+        except Exception as exc:
+            self.__exit__(exc, 0, 0)
+            raise
 
     def __enter__(self):
         return self
@@ -45,10 +48,9 @@ class Session:
     def close(self):
         self._sel.close()
 
-    """
-    Set-up the session
-    """
-    def setup(self):
+    def _setup(self, proxy_url, user_agent):
+        self._sel = selrequests.Session(proxy_url, user_agent)
+        self._sel.set_origin(f"https://{self.host}/")
         with self.request(
             method="GET",
             url=f"https://{self.host}/api/{self.api}/experiments",
@@ -72,12 +74,7 @@ class Session:
             **proxy_config,
             origin=f"https://{self.host}",
             header={
-                "User-Agent": self.user_agent,
-                "Pragma": "no-cache",
-                "Sec-WebSocket-Extensions": "permessage-deflate; client_max_window_bits",
-                "Sec-WebSocket-Key": "AV9Y5FZyifxt410j9UqTqw==",
-                "Sec-WebSocket-Version": "13",
-                "Connection": "Upgrade"
+                "User-Agent": self.user_agent
             }
         )
         ws.recv()
