@@ -18,7 +18,6 @@ class Worker(Thread):
     def do_task(self):
         proxy_url = "http://%s" % next(proxy_iter)
         with seldiscord.Session(user_agent, proxy_url) as dsc:
-            dsc.setup()
             dsc.register(
                 username="h0nda")
             dsc.gateway()
