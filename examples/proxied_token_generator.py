@@ -1,5 +1,6 @@
 from threading import Thread
 import seldiscord
+import secrets
 import itertools
 
 workers = 10
@@ -14,12 +15,16 @@ def save_token(token):
     output_file.write("%s\n" % token)
     output_file.flush()
 
+def generate_name():
+    return secrets.token_hex(4)
+
 class Worker(Thread):
     def do_task(self):
         proxy_url = "http://%s" % next(proxy_iter)
         with seldiscord.Session(user_agent, proxy_url) as dsc:
             dsc.register(
-                username="h0nda")
+                username=generate_name()
+            )
             dsc.gateway()
             save_token(dsc.token)
         
