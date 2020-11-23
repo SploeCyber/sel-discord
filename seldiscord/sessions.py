@@ -46,7 +46,8 @@ class Session:
         self.close()
 
     def close(self):
-        self._sel.close()
+        if self._sel:
+            self._sel.close()
 
     def _setup(self, proxy_url, user_agent):
         self._sel = selrequests.Session(proxy_url, user_agent)
